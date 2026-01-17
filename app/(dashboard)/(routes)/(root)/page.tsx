@@ -1,12 +1,14 @@
 import { getDashboardCourses } from "@/actions/get-dashboard-courses";
 import { CourseList } from "@/components/courses-list";
-import { auth, UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { UserButton } from "@clerk/nextjs";
 import { CheckCircle, Clock } from "lucide-react";
 import { redirect } from "next/navigation";
 import { InfoCard } from "./_components/info-card";
+export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) {
     return redirect("/");
   }
